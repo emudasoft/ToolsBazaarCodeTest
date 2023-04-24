@@ -14,7 +14,10 @@ The call will fail.
 
 2- Create an endpoint in the ProductsController that returns all the products sorted by highest price first, then alphabetically by Name. The endpoint URI should be '/products/most-expensive'
 
-3- Create an endpoint 'customers/top' that returns the top five customers who spent the most between 1/1/2015 and 31/12/2022 (inclusive range), sorted by total spending in descending order. Fetch all the customers with the CustomerRepository.GetAll() method and put all the filtering/sorting logic in the controller or in a new service (do not change the CustomerRepository.GetAll() code)
+3- Create an endpoint 'customers/top' that returns the top five customers who spent the most between 1/1/2015 and 31/12/2022 
+(inclusive range), sorted by total spending in descending order. Fetch all the customers with the CustomerRepository.GetAll() 
+method and put all the 
+filtering/sorting logic in the controller or in a new service (do not change the CustomerRepository.GetAll() code)
 
 4- Add unit tests that cover different scenarios for the logic created in point 3-. Mock the repository and any other dependencies with the NSubstitute, handle the tests expectations with FluentAssertions.
 
@@ -22,4 +25,6 @@ The call will fail.
 
 Nice to have (optional):
 
-6- Protect the endpoints requiring an API key in the HTTP header sent to the server. Read the expected API key from the appsettings.json file. Use the https://github.com/mihirdilip/aspnetcore-authentication-apikey Nuget package.
+6- Protect the endpoints requiring an API key in the HTTP header sent to the server. Read the expected API key from the appsettings.
+
+json file. Use the https://github.com/mihirdilip/aspnetcore-authentication-apikey Nuget package.

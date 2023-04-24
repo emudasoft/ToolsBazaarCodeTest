@@ -33,7 +33,7 @@ public class CustomersController : ControllerBase
         catch (Exception ex)
         {
 
-            _logger.LogInformation($"Updating customer #{customerId} name...");
+            _logger.LogError($"Updating customer #{customerId} name...");
             throw ex;
         }
 
@@ -43,24 +43,36 @@ public class CustomersController : ControllerBase
     public IEnumerable<Customer> GetTop()
     {
         _logger.LogInformation($"The top five customers who spent the most between 1/1/2015 and 31/12/2022");
+        try
+        {
+            IEnumerable<Order> orders = _orderRepository.GetAll();
+            return  _customerRepository.GetTop(orders, DateTime.Parse("1/1/2015"), DateTime.Parse("12/31/2022"));
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError($"not working with error details : => {ex.Message}");
+            throw ex;
+        }
+        
 
 
-        IEnumerable<Order> orders = _orderRepository.GetAll()
-                                    .Where(x => x.Date > DateTime.Parse("1/1/2015")
-                                    && x.Date <= DateTime.Parse("12/31/2022"))
-                                    .ToList();
+        //IEnumerable<Order> orders = _orderRepository.GetAll()
+        //                            .Where(x => x.Date > DateTime.Parse("1/1/2015")
+        //                            && x.Date <= DateTime.Parse("12/31/2022"))
+        //                            .ToList();
 
-        var customerAndTotalPrice = (from _orders in orders
-                                     select new
-                                     {
-                                         total = _orders.Items.Sum(s => s.Price),
-                                         customer = _orders.Customer
-                                     }).
-                     OrderByDescending(x => x.total).Take(5).ToList();
+        //var customerAndTotalPrice = (from _orders in orders
+        //                             select new
+        //                             {
+        //                                 total = _orders.Items.Sum(s => s.Price),
+        //                                 customer = _orders.Customer
+        //                             }).
+        //             OrderByDescending(x => x.total).Take(5).ToList();
 
-        var result = from cus in customerAndTotalPrice
-                     select cus.customer;
-        return result;
+        //var result = from cus in customerAndTotalPrice
+        //             select cus.customer;
+        //return result;
 
     }
 }
